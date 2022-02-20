@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}<title>Autorzy</title>{% endblock %}
+{% block zawartosc %}
+    <ul>
+    {% for author in authors %}
+        <li><a href="{{ author.get_absolute_url }}"> {{ author }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
