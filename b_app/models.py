@@ -14,9 +14,26 @@ class Author(models.Model):
     def get_absolute_url(self):
         return reverse('detail_author', args=(self.id,))
 
+    def get_update_url(self):
+        return f'/update_author/{self.id}/'
+
 
 class Book(models.Model):
     title = models.CharField(max_length=50)
     year = models.IntegerField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
+
+    def get_update_url(self):
+        return f'/update_book/{self.id}/'
+
+
+class Publisher(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=100)
+    books = models.ManyToManyField(Book)
+    street = models.CharField(max_length=40, default="")
+    city = models.CharField(max_length=50, default="")
+    description = models.CharField(max_length=1000, default="")
