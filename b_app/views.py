@@ -98,7 +98,7 @@ class BookListView(ListView):
 class BookUpdateView(UpdateView):
     model = Book
     template_name = 'form.html'
-    success_url = reverse_lazy('list_books')
+    success_url = "/list_book/"
     fields = '__all__'
 
 
@@ -106,6 +106,15 @@ class BookUpdateView(UpdateView):
 class UserListView(ListView):
     model = User
     template_name ='object_list.html'
+
+class Bomba:
+
+
+    @staticmethod
+    def as_view(*args, **kwargs):
+        def f(request):
+            pass
+        return f
 
 
 

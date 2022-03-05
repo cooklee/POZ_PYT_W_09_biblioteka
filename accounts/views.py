@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views import View
 
-from accounts.forms import LoginForm
+from accounts.forms import LoginForm, CreateUserForm
 
 
 class LoginView(View):
@@ -30,6 +30,19 @@ class LogOut(View):
         return redirect('/')
 
 
+class RegistrationView(View):
 
+    def get(self, request):
+        form = CreateUserForm()
+        return render(request, 'form.html', {'form':form})
+
+    def post(self, request):
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return redirect("/")
+        return render(request, 'form.html', {'form': form})
 
 
