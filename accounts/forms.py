@@ -15,3 +15,12 @@ class CreateUserForm(forms.ModelForm):
         widgets = {
             'password':forms.PasswordInput
         }
+
+class UpdateUserPermissionForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = [ 'username', 'user_permissions',]
+        widgets = {
+            'user_permissions': forms.CheckboxSelectMultiple
+        }

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
@@ -40,7 +41,8 @@ class AuthorDetail(View):
         return render(request, 'author.html', {'author': author})
 
 
-class AddBook(View):
+class AddBook(PermissionRequiredMixin, View):
+    permission_required = ['b_app.add_book']
 
     def get(self, request):
         form = AddBookForm()
@@ -91,7 +93,7 @@ class AddPublisherCreateView(CreateView):
     template_name = 'form.html'
 
 
-class BookListView(ListView):
+class BookListView(LoginRequiredMixin, ListView):
     model = Book
     template_name = 'object_list.html'
 
