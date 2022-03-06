@@ -8,7 +8,7 @@ import pytest
 from django.urls import reverse
 
 from b_app.forms import AddPublisherModelForm
-from b_app.models import Publisher
+from b_app.models import Publisher, Book
 
 
 @pytest.mark.django_db
@@ -73,3 +73,20 @@ def test_add_publisher_post():
     new_url = reverse('list_author')
     assert response.url.startswith(new_url)
     Publisher.objects.get(**date)
+
+
+@pytest.mark.django_db
+def test_book_update_view(books):
+    book = books[0]
+    client = Client()
+    url = reverse('update_book', args=(book.id,))
+    data = {
+        'title':'?',
+        'year':123,
+        'author': book.author.id#### TO JEST WAŻNE
+    }
+    response = client.post(url, data)
+
+    Book.objects.get(title="?")
+
+

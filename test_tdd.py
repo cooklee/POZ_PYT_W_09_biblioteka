@@ -19,3 +19,4 @@ def prime_number(n):
 ])
 def test_prime_number(n, result):
     assert prime_number(n) == result
+
